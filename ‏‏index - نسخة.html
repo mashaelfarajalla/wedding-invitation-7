@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة زفاف</title>
+  <meta property="og:description" content="دعوتكم لحضور حفل الزفاف">
+  <meta name="theme-color" content="#f7f2ea">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preload" as="image" href="assets/envelope.jpg">
+  <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="mersal-favicon.png">
+<link rel="apple-touch-icon" href="mersal-favicon.png">
+<style>.mersal-credit{margin:22px auto 0;font-size:12.5px;line-height:1.8;text-align:center;letter-spacing:.2px;opacity:.7;position:relative;z-index:2}.mersal-credit::before{content:"";display:block;width:36px;height:1px;margin:0 auto 12px;background:currentColor;opacity:.35}.mersal-credit a{color:inherit;text-decoration:none;white-space:nowrap;transition:opacity .2s}.mersal-credit a:hover{opacity:.6}.mersal-credit b{font-weight:700}.mersal-credit i{font-style:normal;margin:0 6px;opacity:.6}.mersal-credit span[dir]{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.92em;letter-spacing:.4px}.mersal-credit .mc-tag{display:block;font-size:1.08em;margin-bottom:4px;letter-spacing:.3px}.mersal-credit a{display:inline-block;font-size:.95em;opacity:.85}</style>
+</head>
+<body class="locked">
+
+  <!-- الغلاف: ظرف مطرّز بختم شمع -->
+  <div id="cover" class="cover">
+    <p class="cover-kicker">دعوة خاصة</p>
+    <div class="envelope">
+      <img src="assets/envelope.jpg" alt="" class="envelope-img">
+      <div class="envelope-card">
+        <span class="ec-label">بكل الحب</span>
+        <span class="ec-names"><span data-bind="groom"></span> <span class="ec-amp">&</span> <span data-bind="bride"></span></span>
+        <span class="ec-date" data-bind="short"></span>
+      </div>
+      <button class="wax-seal" id="open-btn" aria-label="افتح الدعوة">
+        <span class="wax-initials"><span id="seal-g"></span><i>&</i><span id="seal-b"></span></span>
+      </button>
+    </div>
+    <p class="cover-hint"><i class="ph ph-hand-tap"></i> اضغط على الختم لفتح الدعوة</p>
+  </div>
+
+  <main class="app">
+
+    <header class="hero">
+      <div class="hero-arch"><div class="hero-img"></div></div>
+      <p class="kicker" data-bind="eventType"></p>
+      <h1 class="hero-names">
+        <span data-bind="groom"></span>
+        <span class="amp">&amp;</span>
+        <span data-bind="bride"></span>
+      </h1>
+      <div class="hero-date">
+        <span data-bind="dayName"></span>
+        <b data-bind="day"></b>
+        <span data-bind="monthYear"></span>
+      </div>
+      <div class="scroll-hint"><i class="ph ph-arrow-down"></i></div>
+    </header>
+
+    <section class="paper welcome reveal">
+      <p class="bismillah">بسم الله الرحمن الرحيم</p>
+      <p class="welcome-text" data-bind="welcomeText"></p>
+      <p class="couple-line"><span data-bind="groom"></span> & <span data-bind="bride"></span></p>
+    </section>
+
+    <img class="swans-divider reveal" src="assets/swans.png" alt="" aria-hidden="true">
+
+    <section class="block reveal">
+      <p class="kicker">أين ومتى</p>
+      <h2 class="title">الموقع والموعد</h2>
+      <p class="loc-hall" data-bind="hall"></p>
+      <p class="loc-address" data-bind="address"></p>
+
+      <div class="date-strip">
+        <div class="ds-month" data-bind="monthYear"></div>
+        <div class="ds-row">
+          <span data-bind="dayName"></span>
+          <b data-bind="day"></b>
+          <span data-bind="time"></span>
+        </div>
+      </div>
+
+      <button class="btn solid" id="save-date"><i class="ph ph-calendar-heart"></i> احفظ الموعد</button>
+    </section>
+
+    <section class="block reveal">
+      <p class="kicker">باقي على الفرح</p>
+      <h2 class="title">العد التنازلي</h2>
+      <div class="countdown">
+        <div class="cd-box"><span id="cd-d">0</span><small>يوم</small></div>
+        <div class="cd-box"><span id="cd-h">0</span><small>ساعة</small></div>
+        <div class="cd-box"><span id="cd-m">0</span><small>دقيقة</small></div>
+        <div class="cd-box"><span id="cd-s">0</span><small>ثانية</small></div>
+      </div>
+    </section>
+
+    <section class="moment reveal">
+      <div class="photo sketch" data-photo="photo1"></div>
+      <div class="poem" data-bind="poem1"></div>
+    </section>
+
+    <section class="block reveal">
+      <p class="kicker">للتنويه</p>
+      <h2 class="title">تفاصيل الحفل</h2>
+      <ul class="details" id="details"></ul>
+    </section>
+
+    <section class="block reveal">
+      <p class="kicker">فقرات الليلة</p>
+      <h2 class="title">برنامج المناسبة</h2>
+      <div class="timeline" id="timeline">
+        <span class="tracker" id="tracker"></span>
+      </div>
+      <div class="notes" id="notes"></div>
+    </section>
+
+    <section class="closing paper reveal">
+      <p data-bind="closingLine"></p>
+      <p class="highlight" data-bind="closingHighlight"></p>
+    </section>
+
+    <section class="block reveal">
+      <p class="kicker">من القلب</p>
+      <h2 class="title">رسائل الأحبة</h2>
+      <div class="bubbles" id="congrats"></div>
+    </section>
+
+    <section class="moment reveal">
+      <div class="photo arch" data-photo="photo2"></div>
+      <div class="poem" data-bind="poem2"></div>
+    </section>
+
+    <footer class="footer">
+      <img class="swans-divider" src="assets/swans.png" alt="" aria-hidden="true">
+      <p class="footer-names"><span data-bind="groom"></span> & <span data-bind="bride"></span></p>
+      <p class="footer-date" data-bind="short"></p>
+      <p class="mersal-credit"><span class="mc-tag">لكل مناسبة، رسالة تستحق أن تصل</span><a href="https://instagram.com/mersal.invites" target="_blank" rel="noopener">بواسطة <b>مرسال</b><i aria-hidden="true">·</i><span dir="ltr">@mersal.invites</span></a></p>
+    </footer>
+  </main>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-nav">
+    <button data-modal="qr-modal"><i class="ph ph-qr-code"></i><span>رمز التحويل</span></button>
+    <button data-modal="loc-modal"><i class="ph ph-map-pin"></i><span>الموقع</span></button>
+    <button class="center" id="share-btn" aria-label="مشاركة"><i class="ph ph-paper-plane-tilt"></i></button>
+    <button id="music-btn"><i class="ph ph-music-notes" id="music-icon"></i><span>موسيقى</span></button>
+    <button data-modal="gift-modal"><i class="ph ph-gift"></i><span>هدية</span></button>
+  </nav>
+
+  <!-- النوافذ المنبثقة -->
+  <div class="modal" id="loc-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-map-pin modal-icon"></i>
+      <h3 data-bind="hall"></h3>
+      <p data-bind="address"></p>
+      <a class="btn solid" id="maps-link" target="_blank" rel="noopener">فتح في خرائط جوجل</a>
+    </div>
+  </div>
+
+  <div class="modal" id="gift-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-gift modal-icon"></i>
+      <h3>إرسال هدية للعروسين</h3>
+      <div class="account">
+        <p data-bind="bank"></p>
+        <p class="acc-num" data-bind="account"></p>
+        <button class="btn small" id="copy-acc"><i class="ph ph-copy"></i> نسخ الرقم</button>
+      </div>
+      <p class="muted">شكراً لمحبتكم ومشاركتكم</p>
+    </div>
+  </div>
+
+  <div class="modal" id="qr-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-qr-code modal-icon"></i>
+      <h3>رمز التحويل البنكي</h3>
+      <img id="qr-img" class="qr" alt="QR">
+      <p class="muted">لمن يرغب بتقديم هدية يمكنه استخدام الرمز أعلاه</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <audio id="music" loop preload="auto"></audio>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

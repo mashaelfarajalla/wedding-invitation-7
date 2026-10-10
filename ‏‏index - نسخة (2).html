@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة زفاف</title>
+  <meta property="og:description" content="دعوتكم لحضور حفل الزفاف">
+  <meta name="theme-color" content="#4a121c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700&family=El+Messiri:wght@400;500;600&family=Rakkas&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="preload" as="image" href="assets/cover-envelope.jpg">
+  <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="mersal-favicon.png">
+<link rel="apple-touch-icon" href="mersal-favicon.png">
+<style>.mersal-credit{margin:22px auto 0;font-size:12.5px;line-height:1.8;text-align:center;letter-spacing:.2px;opacity:.7;position:relative;z-index:2}.mersal-credit::before{content:"";display:block;width:36px;height:1px;margin:0 auto 12px;background:currentColor;opacity:.35}.mersal-credit a{color:inherit;text-decoration:none;white-space:nowrap;transition:opacity .2s}.mersal-credit a:hover{opacity:.6}.mersal-credit b{font-weight:700}.mersal-credit i{font-style:normal;margin:0 6px;opacity:.6}.mersal-credit span[dir]{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.92em;letter-spacing:.4px}.mersal-credit .mc-tag{display:block;font-size:1.08em;margin-bottom:4px;letter-spacing:.3px}.mersal-credit a{display:inline-block;font-size:.95em;opacity:.85}</style>
+</head>
+<body class="locked">
+
+  <!-- الغلاف: ظرف عنابي مختوم بالشمع -->
+  <div id="cover" class="cover">
+    <div class="cover-bg"></div>
+    <div class="cover-top">
+      <p class="cover-kicker">إلى ضيوفنا الكرام</p>
+      <p class="cover-names"><span data-bind="groom"></span> <span class="script">&</span> <span data-bind="bride"></span></p>
+    </div>
+    <button class="cover-seal" id="open-btn" aria-label="افتح الدعوة"></button>
+    <p class="cover-hint">اضغط على الختم لفتح الدعوة</p>
+  </div>
+
+  <main class="app">
+
+    <!-- الواجهة -->
+    <header class="sec dark hero">
+      <div class="hero-photo"></div>
+      <div class="in hero-text">
+        <div class="monogram"><span id="seal-g"></span><i>&</i><span id="seal-b"></span></div>
+        <p class="kicker" data-bind="eventType"></p>
+        <h1 class="hero-names">
+          <span data-bind="groom"></span>
+          <span class="script amp">&</span>
+          <span data-bind="bride"></span>
+        </h1>
+        <p class="hero-date"><span data-bind="short"></span></p>
+        <div class="scroll-hint"><i class="ph ph-caret-down"></i></div>
+      </div>
+    </header>
+
+    <!-- الترحيب -->
+    <section class="sec light">
+      <div class="in reveal">
+        <div class="frame">
+          <p class="bismillah">بسم الله الرحمن الرحيم</p>
+          <p class="welcome-text" data-bind="welcomeText"></p>
+          <div class="rule"></div>
+          <p class="couple-line"><span data-bind="groom"></span> <span class="script">&</span> <span data-bind="bride"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- الموعد والمكان -->
+    <section class="sec dark">
+      <div class="in reveal center">
+        <p class="kicker">موعدنا</p>
+        <h2 class="title">الزمان والمكان</h2>
+        <div class="date-block">
+          <span class="db-side" data-bind="dayName"></span>
+          <span class="db-day" data-bind="day"></span>
+          <span class="db-side" data-bind="monthYear"></span>
+        </div>
+        <p class="db-time"><i class="ph ph-clock"></i> <span data-bind="time"></span></p>
+        <div class="venue">
+          <i class="ph ph-map-pin"></i>
+          <p class="loc-hall" data-bind="hall"></p>
+          <p class="loc-address" data-bind="address"></p>
+        </div>
+        <button class="btn gold" id="save-date"><i class="ph ph-calendar-plus"></i> احفظ الموعد</button>
+      </div>
+    </section>
+
+    <!-- العد التنازلي -->
+    <section class="sec light">
+      <div class="in reveal center">
+        <p class="kicker">على موعد مع الفرح</p>
+        <h2 class="title">العد التنازلي</h2>
+        <div class="countdown">
+          <div class="cd-box"><span id="cd-d">0</span><small>يوم</small></div>
+          <div class="cd-box"><span id="cd-h">0</span><small>ساعة</small></div>
+          <div class="cd-box"><span id="cd-m">0</span><small>دقيقة</small></div>
+          <div class="cd-box"><span id="cd-s">0</span><small>ثانية</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- صورة + شعر -->
+    <section class="moment">
+      <div class="photo photo-low" data-photo="photo1"></div>
+      <div class="poem reveal" data-bind="poem1"></div>
+    </section>
+
+    <!-- التفاصيل والبرنامج -->
+    <section class="sec light">
+      <div class="in reveal center">
+        <p class="kicker">للتنويه</p>
+        <h2 class="title">تفاصيل الحفل</h2>
+        <ul class="details" id="details"></ul>
+      </div>
+      <div class="in reveal center gap-top">
+        <p class="kicker">فقرات الليلة</p>
+        <h2 class="title">برنامج المناسبة</h2>
+        <div class="timeline" id="timeline">
+          <span class="tracker" id="tracker"></span>
+        </div>
+        <div class="notes" id="notes"></div>
+      </div>
+    </section>
+
+    <!-- الختام -->
+    <section class="sec dark">
+      <div class="in reveal center closing">
+        <i class="ph ph-heart-straight quote-icon"></i>
+        <p data-bind="closingLine"></p>
+        <p class="highlight" data-bind="closingHighlight"></p>
+      </div>
+    </section>
+
+    <!-- التهاني -->
+    <section class="sec light">
+      <div class="in reveal center">
+        <p class="kicker">من القلب</p>
+        <h2 class="title">رسائل الأحبة</h2>
+        <div class="bubbles" id="congrats"></div>
+      </div>
+    </section>
+
+    <!-- صورة + شعر -->
+    <section class="moment">
+      <div class="photo" data-photo="photo2"></div>
+      <div class="poem reveal" data-bind="poem2"></div>
+    </section>
+
+    <footer class="sec dark footer">
+      <div class="in center">
+        <p class="footer-names"><span data-bind="groom"></span> <span class="script">&</span> <span data-bind="bride"></span></p>
+        <p class="footer-date" data-bind="short"></p>
+        <p class="mersal-credit"><span class="mc-tag">لكل مناسبة، رسالة تستحق أن تصل</span><a href="https://instagram.com/mersal.invites" target="_blank" rel="noopener">بواسطة <b>مرسال</b><i aria-hidden="true">·</i><span dir="ltr">@mersal.invites</span></a></p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- شريط التنقل السفلي -->
+  <nav class="bottom-nav">
+    <button data-modal="qr-modal"><i class="ph ph-qr-code"></i><span>رمز التحويل</span></button>
+    <button data-modal="loc-modal"><i class="ph ph-map-pin"></i><span>الموقع</span></button>
+    <button class="center" id="share-btn" aria-label="مشاركة"><i class="ph ph-share-network"></i></button>
+    <button id="music-btn"><i class="ph ph-music-notes" id="music-icon"></i><span>موسيقى</span></button>
+    <button data-modal="gift-modal"><i class="ph ph-gift"></i><span>هدية</span></button>
+  </nav>
+
+  <!-- النوافذ المنبثقة -->
+  <div class="modal" id="loc-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-map-pin modal-icon"></i>
+      <h3 data-bind="hall"></h3>
+      <p data-bind="address"></p>
+      <a class="btn wine" id="maps-link" target="_blank" rel="noopener">فتح في خرائط جوجل</a>
+    </div>
+  </div>
+
+  <div class="modal" id="gift-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-gift modal-icon"></i>
+      <h3>إرسال هدية للعروسين</h3>
+      <div class="account">
+        <p data-bind="bank"></p>
+        <p class="acc-num" data-bind="account"></p>
+        <button class="btn small" id="copy-acc"><i class="ph ph-copy"></i> نسخ الرقم</button>
+      </div>
+      <p class="muted">شكراً لمحبتكم ومشاركتكم</p>
+    </div>
+  </div>
+
+  <div class="modal" id="qr-modal">
+    <div class="modal-box">
+      <button class="close" aria-label="إغلاق">&times;</button>
+      <i class="ph ph-qr-code modal-icon"></i>
+      <h3>رمز التحويل البنكي</h3>
+      <img id="qr-img" class="qr" alt="QR">
+      <p class="muted">لمن يرغب بتقديم هدية يمكنه استخدام الرمز أعلاه</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <audio id="music" loop preload="auto"></audio>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
