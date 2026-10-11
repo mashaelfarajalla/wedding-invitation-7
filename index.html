@@ -20,8 +20,8 @@
 
   <!-- الستارة: صورة العروسين على نصفين، يفتحان عند الضغط على ختم القلب -->
   <div id="cover" class="curtain">
-    <div class="curtain-half l"></div>
-    <div class="curtain-half r"></div>
+    <div class="curtain-half l"><div class="face"></div><div class="shade"></div><div class="edge"></div></div>
+    <div class="curtain-half r"><div class="face"></div><div class="shade"></div><div class="edge"></div></div>
     <button class="entry" id="open-btn" aria-label="افتح الدعوة">
       <span class="env-seal"><span class="env-seal-mark"></span></span>
     </button>
@@ -61,10 +61,13 @@
     <section class="section reveal">
       <div class="sec-ic"><i class="ph-light ph-map-pin-area"></i></div>
       <h2 class="section-title">الموقع</h2>
-      <a class="loc-map" id="map-link" target="_blank" rel="noopener" aria-label="فتح الموقع في خرائط جوجل">
-        <iframe id="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="خريطة الموقع" tabindex="-1"></iframe>
-        <span class="map-open"><i class="ph-bold ph-arrow-square-out"></i> خرائط جوجل</span>
-      </a>
+      <div class="loc-map">
+        <iframe id="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="خريطة الموقع"></iframe>
+        <span class="map-pin" aria-hidden="true"><i class="ph-fill ph-heart"></i></span>
+        <a class="map-open" id="map-link" target="_blank" rel="noopener" aria-label="فتح الموقع في خرائط جوجل">
+          <i class="ph ph-map-pin"></i><span data-bind="hall"></span>
+        </a>
+      </div>
       <p class="location-name" data-bind="hall"></p>
       <p class="location-address" data-bind="address"></p>
       <button class="btn" id="save-date"><i class="ph ph-calendar-plus"></i> احفظ الموعد</button>

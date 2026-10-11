@@ -26,6 +26,8 @@ const CONFIG = {
     hall: "قاعة الأمير سلطان الكبرى - فندق الفيصلية",
     address: "الرياض - طريق الملك فهد، حي العليا",
     mapsQuery: "Al Faisaliah Hotel Riyadh",
+    // إحداثيات القاعة (خط العرض,خط الطول) — من خرائط جوجل: اضغط مطولاً على الموقع وانسخ الأرقام
+    coords: "24.6903,46.6853",
   },
 
   // نصوص الهيرو: سطر الدعوة فوق الأسماء، والدعاء تحتها
@@ -81,7 +83,7 @@ const CONFIG = {
     photo1: "assets/photo-rings.jpg", // صورة مع البيت الأول
     photo2: "assets/photo-hands.jpg", // صورة مع البيت الثاني
     qr: "assets/qr.png",
-    music: "assets/music.mp3",
+    music: "assets/music.mp4",
   },
 
   // تأكيد الحضور والمباركات

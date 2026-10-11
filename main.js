@@ -36,7 +36,10 @@
   const mapsUrl = "https://maps.google.com/?q=" + encodeURIComponent(C.location.mapsQuery);
   $("#maps-link").href = mapsUrl;
   $("#map-link").href = mapsUrl;
-  $("#map-frame").src = "https://maps.google.com/maps?q=" + encodeURIComponent(C.location.mapsQuery) + "&z=15&output=embed";
+  // مع الإحداثيات تظهر الخريطة بدون دبوس جوجل الأحمر (دبوس القلب يحل محله)
+  $("#map-frame").src = C.location.coords
+    ? "https://maps.google.com/maps?ll=" + C.location.coords + "&z=16&output=embed"
+    : "https://maps.google.com/maps?q=" + encodeURIComponent(C.location.mapsQuery) + "&z=15&output=embed";
   $("#qr-img").src = C.files.qr;
   $("#qr-img").onerror = function () { this.replaceWith(Object.assign(document.createElement("p"), { className: "muted", textContent: "ضع صورة QR في " + C.files.qr })); };
 
@@ -104,12 +107,13 @@
   $("#open-btn").addEventListener("click", () => {
     if (cover.classList.contains("open")) return;
     cover.classList.add("open");
+    document.body.classList.add("opening");
     playMusic();
     setTimeout(() => {
       cover.classList.add("gone");
       document.body.classList.remove("locked");
       autoScroll();
-    }, 2600);
+    }, 5000);
   });
 
   // تمرير تلقائي بطيء يتوقف عند لمس المستخدم
