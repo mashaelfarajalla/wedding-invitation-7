@@ -37,9 +37,15 @@
   $("#maps-link").href = mapsUrl;
   $("#map-link").href = mapsUrl;
   // مع الإحداثيات تظهر الخريطة بدون دبوس جوجل الأحمر (دبوس القلب يحل محله)
-  $("#map-frame").src = C.location.coords
-    ? "https://maps.google.com/maps?ll=" + C.location.coords + "&z=16&output=embed"
-    : "https://maps.google.com/maps?q=" + encodeURIComponent(C.location.mapsQuery) + "&z=15&output=embed";
+  // الخريطة ثقيلة، فتُحمّل فقط عند اقتراب قسمها من الشاشة
+  const mapFrame = $("#map-frame");
+  new IntersectionObserver((entries, obs) => {
+    if (!entries[0].isIntersecting) return;
+    obs.disconnect();
+    mapFrame.src = C.location.coords
+      ? "https://maps.google.com/maps?ll=" + C.location.coords + "&z=16&output=embed"
+      : "https://maps.google.com/maps?q=" + encodeURIComponent(C.location.mapsQuery) + "&z=15&output=embed";
+  }, { rootMargin: "300px" }).observe(mapFrame);
   $("#qr-img").src = C.files.qr;
   $("#qr-img").onerror = function () { this.replaceWith(Object.assign(document.createElement("p"), { className: "muted", textContent: "ضع صورة QR في " + C.files.qr })); };
 
@@ -93,11 +99,14 @@
   setInterval(tick, 1000);
 
   // ============ الموسيقى ============
+  // الملف لا يُحمّل إلا عند أول تشغيل
   const audio = $("#music");
-  audio.src = C.files.music;
   const musicBtn = $("#music-btn");
   function setPlaying(on) { musicBtn.classList.toggle("playing", on); }
-  function playMusic() { audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); }
+  function playMusic() {
+    if (!audio.src) audio.src = C.files.music;
+    audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }
   musicBtn.addEventListener("click", () => {
     if (audio.paused) playMusic(); else { audio.pause(); setPlaying(false); }
   });
@@ -190,10 +199,12 @@
   if (sheetUrl) {
     rsvpBtn.innerHTML = `<i class="ph-fill ph-paper-plane-tilt"></i> إرسال`;
     rsvpBtn.classList.remove("wa-btn");
-    // المباركات المحفوظة في الشيت تظهر قبل الرسائل الثابتة
-    fetch(sheetUrl).then((r) => r.json()).then((d) => {
-      if (d.messages?.length) $("#congrats").insertAdjacentHTML("afterbegin", d.messages.map(bubble).join(""));
-    }).catch(() => {});
+    // المباركات المحفوظة في الشيت تظهر قبل الرسائل الثابتة (تُجلب بعد فتح الستارة، لا وقت التحميل)
+    $("#open-btn").addEventListener("click", () => {
+      fetch(sheetUrl).then((r) => r.json()).then((d) => {
+        if (d.messages?.length) $("#congrats").insertAdjacentHTML("afterbegin", d.messages.map(bubble).join(""));
+      }).catch(() => {});
+    }, { once: true });
   }
   for (let i = 1; i <= (C.rsvp.maxGuests || 5); i++) guestsSel.add(new Option(i === 1 ? "شخص واحد" : `${i} أشخاص`, i));
   rsvpForm.addEventListener("change", (e) => {

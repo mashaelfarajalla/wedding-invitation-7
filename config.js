@@ -35,6 +35,7 @@ const CONFIG = {
   heroDua: "بارك الله لهما وجمع بينهما على خير ومودة ورحمة",
 
   // الأيقونات من مكتبة Phosphor — تصفح الأسماء من https://phosphoricons.com
+  // بعد تغيير أي أيقونة أعد توليد icons.css (راجع tools/build-icons.js)
   details: [
     { icon: "clock", text: "يرجى الحضور في الوقت المحدد" },
     { icon: "baby", text: "يُرجى عدم اصطحاب الأطفال" },
@@ -83,7 +84,7 @@ const CONFIG = {
     photo1: "assets/photo-rings.jpg", // صورة مع البيت الأول
     photo2: "assets/photo-hands.jpg", // صورة مع البيت الثاني
     qr: "assets/qr.png",
-    music: "assets/music.mp4",
+    music: "assets/music.m4a",
   },
 
   // تأكيد الحضور والمباركات
